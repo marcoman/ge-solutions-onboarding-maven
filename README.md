@@ -22,6 +22,7 @@ Your starting point is the `main` branch. Good luck! :)
 
 * [main](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/364efe5bcb1151c8efbcfa09e7f0f31c21ff0f0b...main)), which is set up with all the problems:
     * Caching not enabled for goals that should be cacheable
+    * System property set for test goal causing caching to be disabled
     * Volatile goal inputs
     * Absolute paths as goal inputs
 * [onboarding-setup-fixes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/tree/onboarding-setup-fixes) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/onboarding-setup-fixes)), which fixes all of the above problems.
