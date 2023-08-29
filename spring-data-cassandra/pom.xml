@@ -33,7 +33,18 @@
 				<configuration>
 					<systemPropertyVariables>
 						<logback.configurationFile>
-							${project.basedir}/logback-test-config.xml
+							${project.basedir}/config/logback-test-config.xml
+						</logback.configurationFile>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<logback.configurationFile>
+							${project.basedir}/config/logback-test-config.xml
 						</logback.configurationFile>
 					</systemPropertyVariables>
 				</configuration>
