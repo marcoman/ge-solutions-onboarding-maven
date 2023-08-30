@@ -20,6 +20,8 @@ import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.junit.Assume.*;
 import static org.springframework.data.cassandra.core.query.Criteria.*;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,10 +33,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.annotation.Id;
@@ -60,6 +64,7 @@ import org.springframework.data.cassandra.domain.User;
 import org.springframework.data.cassandra.domain.UserToken;
 import org.springframework.data.cassandra.repository.support.SchemaTestUtils;
 import org.springframework.data.cassandra.support.CassandraVersion;
+import org.springframework.data.cassandra.support.CqlDataSet;
 import org.springframework.data.cassandra.test.util.AbstractKeyspaceCreatingIntegrationTests;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -288,9 +293,13 @@ class CassandraTemplateIntegrationTests extends AbstractKeyspaceCreatingIntegrat
 	@Test // DATACASS-292
 	void shouldInsertAndCountEntities() {
 
-		User user = new User("heisenberg", "Walter", "White");
-
-		template.insert(user);
+		CqlDataSet usersDataSet;
+		try {
+			usersDataSet = CqlDataSet.fromFile(new File("src/test/test-fixtures/data/users.cql"));
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		usersDataSet.getCqlStatements().forEach(s -> template.execute(SimpleStatement.newInstance(s)));
 
 		long count = template.count(User.class);
 		assertThat(count).isEqualTo(1L);
