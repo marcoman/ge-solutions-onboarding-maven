@@ -8,9 +8,14 @@ Your starting point is the `main` branch. Ensure any GE extension configuration 
 
 ## List of issues
 
+When resolving the following issues, ensure the GE extension configuration is applied only to the modules where it is required.
+
 * Caching not enabled for goals that should be cacheable
+* System property set for test goal causing caching to be disabled
 * Volatile goal inputs
 * Absolute paths as goal inputs
+* Undeclared input to test goal
+* GE configuration in a submodule that requires setting an appropriate pom.xml merge strategys
 
 ## Disclaimers
 
@@ -21,19 +26,8 @@ Your starting point is the `main` branch. Ensure any GE extension configuration 
 ## Branches
 
 * [main](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/364efe5bcb1151c8efbcfa09e7f0f31c21ff0f0b...main)), which is set up with all the problems
-* [onboarding-setup-fixes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/tree/onboarding-setup-fixes) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/onboarding-setup-fixes)), which fixes all the problems.
+* [onboarding-setup-fixes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/tree/onboarding-setup-fixes) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/onboarding-setup-fixes)), which fixes all the problems
 * [onboarding-ge-solutions](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/tree/onboarding-ge-solutions) - ([changes](https://github.com/gradle/gradle-enterprise-solutions-maven-onboarding/compare/onboarding-ge-solutions)), follows the `main` branch but has a basic GE setup for the [Solutions GE instance](https://ge.solutions-team.gradle.com/scans)
-
-## Issues to Resolve
-
-When resolving the following issues, ensure the GE extension configuration is applied only to the modules where it is required.
-
-* Caching not enabled for goals that should be cacheable
-* System property set for test goal causing caching to be disabled
-* Volatile goal inputs
-* Absolute paths as goal inputs
-* Undeclared input to test goal
-* GE configuration in a submodule that requires setting an appropriate pom.xml merge strategy
 
 ## Contributing
 
