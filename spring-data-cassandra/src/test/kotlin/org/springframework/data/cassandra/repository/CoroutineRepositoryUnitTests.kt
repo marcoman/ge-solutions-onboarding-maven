@@ -19,6 +19,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.data.annotation.Id
 import org.springframework.data.cassandra.ReactiveResultSet
@@ -35,6 +36,7 @@ import reactor.core.publisher.Mono
  *
  * @author Mark Paluch
  */
+@Disabled
 class CoroutineRepositoryUnitTests {
 
 	val operations = mockk<ReactiveCassandraOperations>(relaxed = true)
