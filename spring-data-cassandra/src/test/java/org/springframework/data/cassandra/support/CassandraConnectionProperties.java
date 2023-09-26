@@ -15,13 +15,20 @@
  */
 package org.springframework.data.cassandra.support;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Iterator;
+import java.util.HexFormat;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
@@ -75,6 +82,101 @@ public class CassandraConnectionProperties extends Properties {
 			throw new IllegalStateException(cause);
 		}
 	}
+
+	@Override 
+	public void store(OutputStream var1, String var2) throws IOException {
+		this.store0(new BufferedWriter(new OutputStreamWriter(var1)), var2, true);
+	}
+
+	private void store0(BufferedWriter var1, String var2, boolean var3) throws IOException {
+		var1.newLine();
+		synchronized(this) {
+			Iterator var5 = this.entrySet().iterator();
+
+			while(true) {
+			if (!var5.hasNext()) {
+				break;
+			}
+
+			Map.Entry var6 = (Map.Entry)var5.next();
+			String var7 = (String)var6.getKey();
+			String var8 = (String)var6.getValue();
+			var7 = this.saveConvert(var7, true, var3);
+			var8 = this.saveConvert(var8, false, var3);
+			var1.write(var7 + "=" + var8);
+			var1.newLine();
+			}
+		}
+
+		var1.flush();
+	}
+
+
+	private String saveConvert(String var1, boolean var2, boolean var3) {
+		int var4 = var1.length();
+		int var5 = var4 * 2;
+		if (var5 < 0) {
+			var5 = Integer.MAX_VALUE;
+		}
+
+		StringBuilder var6 = new StringBuilder(var5);
+		HexFormat var7 = HexFormat.of().withUpperCase();
+
+		for(int var8 = 0; var8 < var4; ++var8) {
+			char var9 = var1.charAt(var8);
+			if (var9 > '=' && var9 < 127) {
+				if (var9 == '\\') {
+					var6.append('\\');
+					var6.append('\\');
+				} else {
+					var6.append(var9);
+				}
+			} else {
+				switch (var9) {
+					case '\t':
+					var6.append('\\');
+					var6.append('t');
+					continue;
+					case '\n':
+					var6.append('\\');
+					var6.append('n');
+					continue;
+					case '\f':
+					var6.append('\\');
+					var6.append('f');
+					continue;
+					case '\r':
+					var6.append('\\');
+					var6.append('r');
+					continue;
+					case ' ':
+					if (var8 == 0 || var2) {
+						var6.append('\\');
+					}
+
+					var6.append(' ');
+					continue;
+					case '!':
+					case '#':
+					case ':':
+					case '=':
+					var6.append('\\');
+					var6.append(var9);
+					continue;
+				}
+
+				if ((var9 < ' ' || var9 > '~') & var3) {
+					var6.append("\\u");
+					var6.append(var7.toHexDigits(var9));
+				} else {
+					var6.append(var9);
+				}
+			}
+		}
+		return var6.toString();
+	}
+	 
+
 
 	private static void reload() {
 
