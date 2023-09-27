@@ -320,24 +320,29 @@
 		<pluginManagement>
 		<plugins>
 			<plugin>
-			<groupId>com.gradle</groupId>
-			<artifactId>gradle-enterprise-maven-extension</artifactId>
-			<configuration>
-				<gradleEnterprise>
-				<normalization>
-					<runtimeClassPath>
-					<propertiesNormalizations>
-						<propertiesNormalization>
-						<path>config/cassandra-connection.properties</path>
-						<ignoredProperties>
-							<ignore>build.cassandra.native_transport_port</ignore>
-						</ignoredProperties>
-						</propertiesNormalization>
-					</propertiesNormalizations>
-					</runtimeClassPath>
-				</normalization>
-				</gradleEnterprise>
-			</configuration>
+				<groupId>com.gradle</groupId>
+				<artifactId>gradle-enterprise-maven-extension</artifactId>
+				<configuration>
+					<gradleEnterprise>
+					<normalization>
+						<runtimeClassPath>
+						<propertiesNormalizations>
+							<propertiesNormalization>
+							<path>config/cassandra-connection.properties</path>
+							<ignoredProperties>
+								<ignore>build.cassandra.native_transport_port</ignore>
+							</ignoredProperties>
+							</propertiesNormalization>
+						</propertiesNormalizations>
+						<metaInf>
+							<ignoredAttributes>
+								<ignore>Bnd-LastModified</ignore>
+							</ignoredAttributes>
+						</metaInf>
+						</runtimeClassPath>
+					</normalization>
+					</gradleEnterprise>
+				</configuration>
 			</plugin>
 		</plugins>
 		</pluginManagement>
