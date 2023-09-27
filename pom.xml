@@ -333,6 +333,13 @@
 								<ignore>build.cassandra.native_transport_port</ignore>
 							</ignoredProperties>
 							</propertiesNormalization>
+							<propertiesNormalization>
+								<path>embedded-cassandra.yaml</path>
+								<ignoredProperties>
+									<ignore>storage_port</ignore>
+									<ignore>ssl_storage_port</ignore>
+								</ignoredProperties>
+							</propertiesNormalization>
 						</propertiesNormalizations>
 						<metaInf>
 							<ignoredAttributes>
