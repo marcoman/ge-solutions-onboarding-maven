@@ -324,30 +324,45 @@
 				<artifactId>gradle-enterprise-maven-extension</artifactId>
 				<configuration>
 					<gradleEnterprise>
-					<normalization>
-						<runtimeClassPath>
-						<propertiesNormalizations>
-							<propertiesNormalization>
-							<path>config/cassandra-connection.properties</path>
-							<ignoredProperties>
-								<ignore>build.cassandra.native_transport_port</ignore>
-							</ignoredProperties>
-							</propertiesNormalization>
-							<propertiesNormalization>
-								<path>embedded-cassandra.yaml</path>
+						<normalization>
+							<runtimeClassPath>
+							<propertiesNormalizations>
+								<propertiesNormalization>
+								<path>config/cassandra-connection.properties</path>
 								<ignoredProperties>
-									<ignore>storage_port</ignore>
-									<ignore>ssl_storage_port</ignore>
+									<ignore>build.cassandra.native_transport_port</ignore>
 								</ignoredProperties>
-							</propertiesNormalization>
-						</propertiesNormalizations>
-						<metaInf>
-							<ignoredAttributes>
-								<ignore>Bnd-LastModified</ignore>
-							</ignoredAttributes>
-						</metaInf>
-						</runtimeClassPath>
-					</normalization>
+								</propertiesNormalization>
+								<propertiesNormalization>
+									<path>embedded-cassandra.yaml</path>
+									<ignoredProperties>
+										<ignore>storage_port</ignore>
+										<ignore>ssl_storage_port</ignore>
+									</ignoredProperties>
+								</propertiesNormalization>
+							</propertiesNormalizations>
+							<metaInf>
+								<ignoredAttributes>
+									<ignore>Bnd-LastModified</ignore>
+								</ignoredAttributes>
+							</metaInf>
+							</runtimeClassPath>
+						</normalization>
+						<plugins>
+							<plugin>
+								<artifactId>maven-failsafe-plugin</artifactId>
+								<inputs>
+									<fileSets>
+										<fileSet>
+											<name>logback.configurationFile</name>
+											<paths>
+												<path>${project.basedir}/config</path>
+											</paths>
+										</fileSet>
+									</fileSets>
+								</inputs>
+							</plugin>
+						</plugins>
 					</gradleEnterprise>
 				</configuration>
 			</plugin>
