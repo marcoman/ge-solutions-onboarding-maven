@@ -356,7 +356,7 @@
 										<fileSet>
 											<name>logback.configurationFile</name>
 											<paths>
-												<path>${project.basedir}/config</path>
+												<path>${project.basedir}/config/logback-test-config.xml</path>
 											</paths>
 										</fileSet>
 									</fileSets>
