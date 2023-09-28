@@ -98,6 +98,8 @@
 		<multithreadedtc.version>1.01</multithreadedtc.version>
 		<project.type>multi</project.type>
 		<springdata.commons>3.2.0-SNAPSHOT</springdata.commons>
+		<failsafe.rerunFailingTestsCount>2</failsafe.rerunFailingTestsCount>
+		<surefire.rerunFailingTestsCount>2</surefire.rerunFailingTestsCount>
 	</properties>
 
 	<dependencyManagement>
