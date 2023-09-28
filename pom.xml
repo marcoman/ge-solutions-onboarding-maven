@@ -203,6 +203,25 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<configuration>
+					<attributes>
+						<docs-dir>src/main/asciidoc/docs</docs-dir>
+					</attributes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>asciidoc-to-html</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
 				<version>1.9.10</version>
@@ -266,7 +285,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<configuration>
-					<argLine>@{argLine} -Xms1g -Xmx1500m -Xss256k -Dcassandra.version=${cassandra.version}</argLine>
+					<argLine>@{argLine} -Xms1g -Xmx1500m -Xss256k -Dcassandra.version=${cassandra.version} -Ddatastax-java-driver.basic.request.timeout="15 seconds"</argLine>
 					<forkCount>1</forkCount>
 					<reuseForks>true</reuseForks>
 					<useFile>false</useFile>
@@ -365,6 +384,122 @@
 							</runtimeClassPath>
 						</normalization>
 						<plugins>
+							<plugin>
+								<groupId>org.asciidoctor</groupId>
+								<artifactId>asciidoctor-maven-plugin</artifactId>
+								<inputs>
+									<fileSets>
+										<fileSet>
+											<name>sourceDirectory</name>
+											<normalization>
+												<ignoreEmptyDirectories>true</ignoreEmptyDirectories>
+												<ignoreLineEndings>true</ignoreLineEndings>
+											</normalization>
+										</fileSet>
+										<fileSet>
+											<name>templateDirs</name>
+										</fileSet>
+									</fileSets>
+									<properties>
+										<property>
+											<name>encoding</name>
+										</property>
+										<property>
+											<name>preserveDirectories</name>
+										</property>
+										<property>
+											<name>relativeBaseDir</name>
+										</property>
+										<property>
+											<name>skip</name>
+										</property>
+										<property>
+											<name>requires</name>
+										</property>
+										<property>
+											<name>attributes</name>
+										</property>
+										<property>
+											<name>backend</name>
+										</property>
+										<property>
+											<name>doctype</name>
+										</property>
+										<property>
+											<name>headerFooter</name>
+										</property>
+										<property>
+											<name>templateEngine</name>
+										</property>
+										<property>
+											<name>templateCache</name>
+										</property>
+										<property>
+											<name>sourceDocumentName</name>
+										</property>
+										<property>
+											<name>sourceDocumentExtensions</name>
+										</property>
+										<property>
+											<name>sourcemap</name>
+										</property>
+										<property>
+											<name>catalogAssets</name>
+										</property>
+										<property>
+											<name>extensions</name>
+										</property>
+										<property>
+											<name>embedAssets</name>
+										</property>
+										<property>
+											<name>attributesChain</name>
+										</property>
+									</properties>
+									<ignoredProperties>
+										<!-- These properties should not impact goal output -->
+										<ignore>projectDirectory</ignore>
+										<ignore>rootDir</ignore>
+										<ignore>baseDir</ignore>
+										<ignore>gemPath</ignore>
+
+										<ignore>eruby</ignore>
+										<ignore>project</ignore>
+										<ignore>session</ignore>
+										<ignore>enableVerbose</ignore>
+										<ignore>logHandler</ignore>
+									</ignoredProperties>
+								</inputs>
+								<iteratedProperties>
+									<property>
+										<name>resources</name>
+										<inputs>
+											<properties>
+												<property>
+													<name>targetPath</name>
+												</property>
+												<property>
+													<name>filtering</name>
+												</property>
+											</properties>
+										</inputs>
+									</property>
+								</iteratedProperties>
+								<outputs>
+									<directories>
+										<directory>
+											<name>outputDirectory</name>
+										</directory>
+									</directories>
+									<files>
+										<file>
+											<name>outputFile</name>
+										</file>
+									</files>
+									<cacheableBecause>generates consistent outputs for declared inputs
+									</cacheableBecause>
+								</outputs>
+							</plugin>
 							<plugin>
 								<artifactId>maven-failsafe-plugin</artifactId>
 								<inputs>
