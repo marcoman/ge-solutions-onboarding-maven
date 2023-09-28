@@ -333,24 +333,33 @@
 									<ignore>build.cassandra.native_transport_port</ignore>
 								</ignoredProperties>
 								</propertiesNormalization>
-								<propertiesNormalization>
-									<path>embedded-cassandra.yaml</path>
-									<ignoredProperties>
-										<ignore>storage_port</ignore>
-										<ignore>ssl_storage_port</ignore>
-									</ignoredProperties>
-								</propertiesNormalization>
 							</propertiesNormalizations>
 							<metaInf>
 								<ignoredAttributes>
 									<ignore>Bnd-LastModified</ignore>
 								</ignoredAttributes>
 							</metaInf>
+							<ignoredFiles>
+								<ignoredFile>embedded-cassandra.yaml</ignoredFile>
+							</ignoredFiles>
 							</runtimeClassPath>
 						</normalization>
 						<plugins>
 							<plugin>
 								<artifactId>maven-failsafe-plugin</artifactId>
+								<inputs>
+									<fileSets>
+										<fileSet>
+											<name>logback.configurationFile</name>
+											<paths>
+												<path>${project.basedir}/config/logback-test-config.xml</path>
+											</paths>
+										</fileSet>
+									</fileSets>
+								</inputs>
+							</plugin>
+							<plugin>
+								<artifactId>maven-surefire-plugin</artifactId>
 								<inputs>
 									<fileSets>
 										<fileSet>
