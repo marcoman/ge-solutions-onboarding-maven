@@ -17,6 +17,8 @@ package org.springframework.data.cassandra.support;
 
 import lombok.SneakyThrows;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -88,6 +90,18 @@ public class CqlDataSet {
 	public static CqlDataSet fromClassPath(String resource) {
 
 		URL url = Resources.getResource(resource);
+		return new CqlDataSet(url, null);
+	}
+
+	/**
+	 * Create a {@link CqlDataSet} from a file.
+	 *
+	 * @param file
+	 * @return
+	 */
+	public static CqlDataSet fromFile(File file) throws MalformedURLException {
+
+		URL url = file.toURI().toURL();
 		return new CqlDataSet(url, null);
 	}
 }
