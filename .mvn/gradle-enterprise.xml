@@ -1,6 +1,6 @@
 <gradleEnterprise>
   <server>
-    <url>http://ec2-44-203-143-70.compute-1.amazonaws.com</url>
+    <url>http://potato:9080</url>
     <!-- adjust depending on whether trusted cert is already configured in GE: -->
     <allowUntrusted>true</allowUntrusted>
   </server>
