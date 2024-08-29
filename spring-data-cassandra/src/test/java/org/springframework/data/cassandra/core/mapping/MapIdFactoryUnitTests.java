@@ -16,6 +16,7 @@
 
 package org.springframework.data.cassandra.core.mapping;
 
+import java.security.SecureRandom;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.data.cassandra.core.mapping.IdInterfaceValidator.*;
 import static org.springframework.data.cassandra.core.mapping.MapIdFactory.*;
@@ -55,7 +56,7 @@ public class MapIdFactoryUnitTests {
 
 	@Test
 	void testHappyExtendingMapId() {
-		Random r = new Random();
+		Random r = new SecureRandom();
 		String s = "" + r.nextInt();
 		Integer i = new Integer(r.nextInt());
 
@@ -139,7 +140,7 @@ public class MapIdFactoryUnitTests {
 
 	@Test
 	void testHappyExtendingNothing() {
-		Random r = new Random();
+		Random r = new SecureRandom();
 		String s = "" + r.nextInt();
 		Integer i = new Integer(r.nextInt());
 
