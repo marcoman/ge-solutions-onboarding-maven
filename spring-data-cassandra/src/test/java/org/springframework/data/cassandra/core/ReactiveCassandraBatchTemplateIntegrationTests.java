@@ -15,6 +15,7 @@
  */
 package org.springframework.data.cassandra.core;
 
+import java.security.SecureRandom;
 import static org.assertj.core.api.Assertions.*;
 
 import reactor.core.publisher.Mono;
@@ -393,7 +394,7 @@ class ReactiveCassandraBatchTemplateIntegrationTests extends AbstractKeyspaceCre
 	void shouldSupportMultithreadedMerge() {
 
 		ReactiveCassandraBatchOperations batchOperations = new ReactiveCassandraBatchTemplate(template, BatchType.LOGGED);
-		Random random = new Random();
+		Random random = new SecureRandom();
 
 		for (int i = 0; i < 100; i++) {
 
